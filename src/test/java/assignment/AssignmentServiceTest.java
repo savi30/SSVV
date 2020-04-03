@@ -1,6 +1,5 @@
 package assignment;
 
-import domain.Student;
 import domain.Tema;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -44,5 +43,7 @@ public class AssignmentServiceTest {
         Tema assignment = new Tema("200", "testValid", 4, 3);
         Tema result = service.addTema(assignment);
         Assert.assertEquals(assignment.getID(), result.getID());
+        service.deleteTema("200");
     }
+
 }
