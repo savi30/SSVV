@@ -1,8 +1,9 @@
-package assignment;
+package grade;
 
-import domain.Tema;
+import domain.Nota;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import repository.NotaXMLRepo;
 import repository.StudentXMLRepo;
@@ -11,9 +12,10 @@ import service.Service;
 import validation.NotaValidator;
 import validation.StudentValidator;
 import validation.TemaValidator;
-import validation.ValidationException;
 
-public class AssignmentServiceTest {
+import java.time.LocalDate;
+
+public class GradeServiceTest {
     public static Service service;
 
     @Before
@@ -32,18 +34,11 @@ public class AssignmentServiceTest {
                 notaXMLRepository, notaValidator);
     }
 
-    @Test(expected = ValidationException.class)
-    public void addAssignmentInvalidId() {
-        Tema assignment = new Tema(null, "testValid", 4, 3);
-        service.addTema(assignment);
-    }
-
     @Test
-    public void addAssignmentValidId() {
-        Tema assignment = new Tema("200", "testValid", 4, 3);
-        Tema result = service.addTema(assignment);
-        Assert.assertEquals(assignment.getID(), result.getID());
-        service.deleteTema("200");
-    }
+    public void addGradeValid() {
+        Nota nota = new Nota("12345", "45", "1", 10, LocalDate.of(2018, 10, 22));
+        double result = service.addNota(nota, "test");
 
+        Assert.assertEquals(7.5, result, 0);
+    }
 }

@@ -2,7 +2,7 @@ package student;
 
 import domain.Student;
 import org.junit.Assert;
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 import repository.NotaXMLRepo;
 import repository.StudentXMLRepo;
@@ -14,10 +14,10 @@ import validation.TemaValidator;
 import validation.ValidationException;
 
 public class StudentServiceTest {
-    private static Service service;
+    public static Service service;
 
-    @BeforeClass
-    public static void before() {
+    @Before
+    public void before() {
         StudentValidator studentValidator = new StudentValidator();
         TemaValidator temaValidator = new TemaValidator();
         String filenameStudent = "src/test/resources/fisiere/Studenti.xml";
@@ -29,7 +29,7 @@ public class StudentServiceTest {
         NotaValidator notaValidator = new NotaValidator(studentXMLRepository, temaXMLRepository);
         NotaXMLRepo notaXMLRepository = new NotaXMLRepo(filenameNota);
         service = new Service(studentXMLRepository, studentValidator, temaXMLRepository, temaValidator,
-                              notaXMLRepository, notaValidator);
+                notaXMLRepository, notaValidator);
     }
 
     @Test(expected = ValidationException.class)
