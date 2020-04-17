@@ -42,8 +42,52 @@ public class AssignmentServiceTest {
     public void addAssignmentValidId() {
         Tema assignment = new Tema("200", "testValid", 4, 3);
         Tema result = service.addTema(assignment);
-        Assert.assertEquals(assignment.getID(), result.getID());
+        Assert.assertNull(result);
+        Tema added = service.findTema("200");
+        Assert.assertEquals(added.getID(), assignment.getID());
         service.deleteTema("200");
     }
 
+    @Test(expected = ValidationException.class)
+    public void addAssignmentIdEmpty() {
+        Tema assignment = new Tema("", "testValid", 4, 3);
+        service.addTema(assignment);
+    }
+
+    @Test(expected = ValidationException.class)
+    public void addAssignmentDescriptionEmpty() {
+        Tema assignment = new Tema("200", "", 4, 3);
+        service.addTema(assignment);
+    }
+
+    @Test(expected = ValidationException.class)
+    public void addAssignmentDeadlineLow() {
+        Tema assignment = new Tema("200", "test", 0, 3);
+        service.addTema(assignment);
+    }
+
+    @Test(expected = ValidationException.class)
+    public void addAssignmentDeadlineHigh() {
+        Tema assignment = new Tema("200", "test", 20, 3);
+        service.addTema(assignment);
+    }
+
+    @Test(expected = ValidationException.class)
+    public void addAssignmentTurninLow() {
+        Tema assignment = new Tema("200", "test", 3, 0);
+        service.addTema(assignment);
+    }
+
+    @Test(expected = ValidationException.class)
+    public void addAssignmentTurninHigh() {
+        Tema assignment = new Tema("200", "test", 3, 32);
+        service.addTema(assignment);
+    }
+
+    @Test
+    public void addAssignmentExisting() {
+        Tema assignment = new Tema("1", "test", 3, 4);
+        Tema result = service.addTema(assignment);
+        Assert.assertNotNull(result);
+    }
 }

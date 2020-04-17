@@ -42,7 +42,10 @@ public class StudentServiceTest {
     public void addStudentValidId() {
         Student student = new Student("200", "Jon Doe", 900, "test@mail.com");
         Student result = service.addStudent(student);
-        Assert.assertEquals(student.getID(), result.getID());
+        Assert.assertNull(result);
+        Student added = service.findStudent("200");
+        Assert.assertEquals(student.getID(), added.getID());
+        service.deleteStudent("200");
     }
 
     @Test(expected = ValidationException.class)

@@ -3,7 +3,6 @@ package grade;
 import domain.Nota;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import repository.NotaXMLRepo;
 import repository.StudentXMLRepo;
@@ -40,5 +39,6 @@ public class GradeServiceTest {
         double result = service.addNota(nota, "test");
 
         Assert.assertEquals(7.5, result, 0);
+        service.deleteNota("12345");
     }
 }
