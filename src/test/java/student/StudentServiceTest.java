@@ -44,4 +44,68 @@ public class StudentServiceTest {
         Student result = service.addStudent(student);
         Assert.assertEquals(student.getID(), result.getID());
     }
+
+    @Test(expected = ValidationException.class)
+    public void addStudentIdEmpty() {
+        Student student = new Student("", "Jon Doe", 900, "test@mail.com");
+        Student result = service.addStudent(student);
+        Assert.assertEquals(student.getID(), result.getID());
+    }
+
+    @Test(expected = ValidationException.class)
+    public void addStudentNameNull() {
+        Student student = new Student("300", null, 900, "test@mail.com");
+        Student result = service.addStudent(student);
+        Assert.assertEquals(student.getID(), result.getID());
+    }
+
+    @Test(expected = ValidationException.class)
+    public void addStudentNameEmpty() {
+        Student student = new Student("300", "", 900, "test@mail.com");
+        Student result = service.addStudent(student);
+        Assert.assertEquals(student.getID(), result.getID());
+    }
+
+    @Test
+    public void addStudentNameValidValue() {
+        Student student = new Student("300", "Jon Doe", 900, "test@mail.com");
+        Student result = service.addStudent(student);
+        Assert.assertEquals(student.getID(), result.getID());
+    }
+
+    @Test(expected = ValidationException.class)
+    public void addStudentEmailNull() {
+        Student student = new Student("300", "Jon Doe", 900, null);
+        Student result = service.addStudent(student);
+        Assert.assertEquals(student.getID(), result.getID());
+    }
+
+    @Test(expected = ValidationException.class)
+    public void addStudentEmailEmpty() {
+        Student student = new Student("300", "Jon Doe", 900, "");
+        Student result = service.addStudent(student);
+        Assert.assertEquals(student.getID(), result.getID());
+    }
+
+    @Test
+    public void addStudentEmailValidValue() {
+        Student student = new Student("300", "Jon Doe", 900, "test@mail.com");
+        Student result = service.addStudent(student);
+        Assert.assertEquals(student.getID(), result.getID());
+    }
+
+    @Test
+    public void addStudentGroupValid() {
+        Student student = new Student("300", "Jon Doe", 900, "test@mail.com");
+        Student result = service.addStudent(student);
+        Assert.assertEquals(student.getID(), result.getID());
+    }
+
+    @Test(expected = ValidationException.class)
+    public void addStudentGroupInvalid() {
+        Student student = new Student("300", "Jon Doe", -45, "test@mail.com");
+        Student result = service.addStudent(student);
+        Assert.assertEquals(student.getID(), result.getID());
+    }
+
 }
