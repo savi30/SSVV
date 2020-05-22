@@ -6,8 +6,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="SSVV" />
+        <module name="SSVV-clone" />
         <module name="PrrojectV02" />
+        <module name="SSVV" />
       </profile>
     </annotationProcessing>
   </component>

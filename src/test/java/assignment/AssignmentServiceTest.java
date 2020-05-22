@@ -1,5 +1,6 @@
 package assignment;
 
+import domain.Student;
 import domain.Tema;
 import org.junit.Assert;
 import org.junit.Before;
@@ -89,5 +90,26 @@ public class AssignmentServiceTest {
         Tema assignment = new Tema("1", "test", 3, 4);
         Tema result = service.addTema(assignment);
         Assert.assertNotNull(result);
+    }
+
+    @Test
+    public void addAssignmentIntegration(){
+        Student student = new Student("200", "Jon Doe", 900, "test@mail.com");
+        Student result = service.addStudent(student);
+        Assert.assertNull(result);
+
+        Tema assignment = new Tema("200", "testValid", 4, 3);
+        Tema result1 = service.addTema(assignment);
+        Assert.assertNull(result1);
+
+
+        Student added = service.findStudent("200");
+        Tema added1 = service.findTema("200");
+
+        Assert.assertEquals(student.getID(), added.getID());
+        Assert.assertEquals(added1.getID(), assignment.getID());
+
+        service.deleteStudent("200");
+        service.deleteTema("200");
     }
 }

@@ -1,6 +1,8 @@
 package grade;
 
 import domain.Nota;
+import domain.Student;
+import domain.Tema;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -39,6 +41,32 @@ public class GradeServiceTest {
         double result = service.addNota(nota, "test");
 
         Assert.assertEquals(7.5, result, 0);
+        service.deleteNota("12345");
+    }
+
+    @Test
+    public void addGradeIntegration(){
+        Student student = new Student("200", "Jon Doe", 900, "test@mail.com");
+        Student result = service.addStudent(student);
+        Assert.assertNull(result);
+
+        Tema assignment = new Tema("200", "testValid", 4, 3);
+        Tema result1 = service.addTema(assignment);
+        Assert.assertNull(result1);
+
+
+        Nota nota = new Nota("12345", "45", "1", 10, LocalDate.of(2018, 10, 22));
+        double result2 = service.addNota(nota, "test");
+        Assert.assertEquals(7.5, result2, 0);
+
+        Student added = service.findStudent("200");
+        Tema added1 = service.findTema("200");
+
+        Assert.assertEquals(student.getID(), added.getID());
+        Assert.assertEquals(added1.getID(), assignment.getID());
+
+        service.deleteStudent("200");
+        service.deleteTema("200");
         service.deleteNota("12345");
     }
 }
